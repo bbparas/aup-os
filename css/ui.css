@@ -1,8 +1,31 @@
 body {
 	background: #000022;
-	color: #FF9900;
+	color: #FFFFFF;
+    font-size: 18px; /*base font size is 14px*/
+    font-family: Arial, 'Lucida Sans Unicode';
+    margin: 0;
+    padding: 0;
 }
 
-.title {
-	text-align: center;
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.application {
+    padding: 1% 5% 5% 5%;
+    margin: 0 auto;
+    width: 50%;
+    clear: both;
+    text-align: center;
+    background-color: #028ABD;
+}
+
+.parameters {
+    width: 100%;
+}
+
+.job-input {
+    width: 100%;
 }
