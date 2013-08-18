@@ -6,14 +6,16 @@
         desc: job queue object responsible for holding jobs
     */
     
-    class JobQueue {
-        private $_jobQueue = array();
-        function JobQueue(array $job = null) {
-            if($job != null) {
-                foreach($job as $j) {
-                    $j['']
-                }
-            }
+    //TODO -o wawi -c singleton: create this class singleton if possible
+    class JobQueue extends Queue {
+        
+        function JobQueue() {
+            echo "initialized jobqueue";    
         }
+        
+        function getQueue() {
+            return $this->_queue;
+        }
+        
     }
 ?>

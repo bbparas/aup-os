@@ -6,7 +6,17 @@
         desc: autoload classes
     */
     
+    //TODO 3 -o wawi -c transform: transform function so that it will be flexible in any folders
+    
+    include('inc/wawlib.php');
+    
     function __autoload($class) {
-        require("classes/".strtolower($class).".php");
+        $path = "class/".strtolower($class).".php";
+        
+        if(is_file($path)) {
+            require $path;
+            return true;
+        }
+        return false;
     }
 ?>

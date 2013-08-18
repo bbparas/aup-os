@@ -2,7 +2,7 @@
 /* index.php
 	created by: Jewayson Gonzalgo
 	created on: Aug 14, 2013
-	last edited: Aug 14, 2013
+	last edited: Aug 18, 2013
 	desc: Operating System Project
 
 	Shortest Job First Preemptive sample
@@ -14,7 +14,7 @@
 <html>
 	<head>
 		<title>OS SJF-P</title>
-		<link rel="stylesheet" type="text/css" href="css/ui.css" />
+		<!--<link rel="stylesheet" type="text/css" href="css/ui.css" />-->
         <script type="text/javascript" src="js/os.js"></script>
 	</head>
 	<body>
@@ -80,7 +80,30 @@
                 <p>test here</p>
                 <?php
                     include('autoload.php');
-                    echo "hello";  
+                    
+                    $jobq = new JobQueue();
+                    
+                    $job1 = new Job();
+                    $job1->name = 1;
+                    $job1->arrival = 2;
+                    $job1->burst = 5;
+                    $job1->priority = 0;
+                    $jobq->insertJob($job1);
+                    
+                    $job2 = new Job();
+                    $job2->name = 2;
+                    $job2->arrival = 5;
+                    $job2->burst = 3;
+                    $job2->priority = 0;
+                    $jobq->insertJob($job2);
+                    $jobq->viewQueue();
+                    
+                    $readyq = new ReadyQueue($jobq);
+                    
+                    if($readyq->checkArrivedJob(2)) {
+                        echo "there is one!";
+                    }
+                    
                 ?>
                 
             </div>
