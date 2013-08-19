@@ -10,11 +10,8 @@
     class JobQueue extends Queue {
         
         function JobQueue() {
-            echo "initialized jobqueue";    
-        }
-        
-        function getQueue() {
-            return $this->_queue;
+            echo "initialized jobqueue<br/>";
+            $this->queueType = "JobQueue";    
         }
         
     }

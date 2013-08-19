@@ -2,7 +2,7 @@
 /* index.php
 	created by: Jewayson Gonzalgo
 	created on: Aug 14, 2013
-	last edited: Aug 18, 2013
+	last edited: Aug 19, 2013
 	desc: Operating System Project
 
 	Shortest Job First Preemptive sample
@@ -81,28 +81,32 @@
                 <?php
                     include('autoload.php');
                     
-                    $jobq = new JobQueue();
+                    $job[0] = new Job();
+                    $job[0]->arrival = 1;
+                    $job[0]->burst = 3;
+                    $job[0]->name = 1;
+                    $job[0]->priority = 1;
                     
-                    $job1 = new Job();
-                    $job1->name = 1;
-                    $job1->arrival = 2;
-                    $job1->burst = 5;
-                    $job1->priority = 0;
-                    $jobq->insertJob($job1);
+                    $job[1] = new Job();
+                    $job[1]->arrival = 3;
+                    $job[1]->burst = 5;
+                    $job[1]->name = 2;
+                    $job[1]->priority = 1;
                     
-                    $job2 = new Job();
-                    $job2->name = 2;
-                    $job2->arrival = 5;
-                    $job2->burst = 3;
-                    $job2->priority = 0;
-                    $jobq->insertJob($job2);
-                    $jobq->viewQueue();
+                    $job[2] = new Job();
+                    $job[2]->arrival = 4;
+                    $job[2]->burst = 2;
+                    $job[2]->name = 3;
+                    $job[2]->priority = 1;
                     
-                    $readyq = new ReadyQueue($jobq);
+                    $jq = new JobQueue();
                     
-                    if($readyq->checkArrivedJob(2)) {
-                        echo "there is one!";
-                    }
+                    $jq->insertJobArray($job);
+                    
+                    $rq = new ReadyQueue($jq);
+                    $cpu = new CPU($rq);
+                   
+                    $cpu->runCPU();
                     
                 ?>
                 

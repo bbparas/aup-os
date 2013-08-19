@@ -16,12 +16,14 @@
         }    
         
         function showJobInfo() {
+            $job = "";
             foreach($this->_column as $col) {
-                echo $col." -> ".$this->_data[$col]."<br/>";
+                $job .= $col." -> ".$this->_data[$col]."<br/>";
             }
+            return $job;
         }
         
-        function minusBurstTime() {
+        function minusBurstTime() { //can be transferred to cpu later
             $this->_data['burst']--;
         }
         
@@ -29,7 +31,7 @@
             if(in_array($key, $this->_column) && isset($this->_data[$key])) {
                 return $this->_data[$key];
             }
-            echo "error: column doesn exist or value is not yet set";
+            echo "error: column doesn exist or value is not yet set job.php<br/>";
         }
         
         function __set($column, $value) {
@@ -37,7 +39,7 @@
                 $this->_data[$column] = $value;
             }
             else {
-                echo "error: column dont exist or value is already set";
+                echo "error: column dont exist or value is already set job.php<br/>";
             }
         }
         
