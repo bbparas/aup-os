@@ -24,7 +24,10 @@
         }
         
         function minusBurstTime() { //can be transferred to cpu later
-            $this->_data['burst']--;
+            if($this->_data['burst'] > 0) {
+                echo "minus burst time to job {$this->name}<br/>";
+                $this->_data['burst']--;
+            }
         }
         
         function __get($key) {

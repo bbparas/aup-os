@@ -9,13 +9,14 @@
     
     class CPU {
         protected $_readyQueue;
-        protected $_activeJob = array();
+        protected $_activeJob;
         
         function CPU(ReadyQueue $readyQueue) {
             echo "started CPU<br/>";
             $this->_readyQueue = $readyQueue;
         }
         
+        //main processing of the SJF-P process
         function runCPU() {
             echo "<h3>CPU Run</h3><hr/>";
             $time = 0;
@@ -23,18 +24,34 @@
             while(!($this->_readyQueue->getJobQueue()->isEmpty()) || !($this->_readyQueue->isEmpty()) || !($this->isEmptyActiveJob())) {
                 echo "<hr/><b>time: {$time}</b><br/>";
                 
+                if($this->_readyQueue->checkArrivedJob($time)) {
+                    $this->sendJobBack();
+                }
                 
-                if($time == 10)
-                    break;
+                $this->_readyQueue->transferJob($time);
+                
+                $this->activeJobListener();
+                
+                if($this->isEmptyActiveJob()) {
+                    $this->_activeJob = $this->_readyQueue->sendJob();    
+                }
+                if(!($this->isEmptyActiveJob())){
+                    $this->_activeJob->minusBurstTime();
                     
+                }
+                
                 $this->showAllActivity();
+                
+                $this->activeJobListener();
                 $time++;
             }
+            echo "all jobs are ended at <b>time {$time}</b>, CPU terminated<br/>";
         }
         
         function sendJobBack() {
             if(!($this->isEmptyActiveJob())) {
                 $this->_readyQueue->insertJob($this->_activeJob);
+                echo "send job {$this->_activeJob->name} back to ready queue since there arrived new job<br/>";
                 unset($this->_activeJob);    
             }
         }
@@ -48,9 +65,19 @@
             }
         }
         
+        function activeJobListener() {
+            if(!($this->isEmptyActiveJob())) {
+                if($this->_activeJob->burst == 0) {
+                    echo "job {$this->_activeJob->name} burst is 0, unsetting in cpu<br/>";
+                    unset($this->_activeJob);
+                }    
+            }
+                
+        }
+        
         function showActiveJob() { //debug purpose 
             if(!empty($this->_activeJob)) {
-                $this->_activeJob->showJobInfo();    
+                return $this->_activeJob->showJobInfo();    
             }
             
         }

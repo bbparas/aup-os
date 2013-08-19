@@ -83,13 +83,13 @@
                     
                     $job[0] = new Job();
                     $job[0]->arrival = 1;
-                    $job[0]->burst = 3;
+                    $job[0]->burst = 9;
                     $job[0]->name = 1;
                     $job[0]->priority = 1;
                     
                     $job[1] = new Job();
                     $job[1]->arrival = 3;
-                    $job[1]->burst = 5;
+                    $job[1]->burst = 3;
                     $job[1]->name = 2;
                     $job[1]->priority = 1;
                     
@@ -98,6 +98,18 @@
                     $job[2]->burst = 2;
                     $job[2]->name = 3;
                     $job[2]->priority = 1;
+                    
+                    $job[3] = new Job();
+                    $job[3]->arrival = 6;
+                    $job[3]->burst = 1;
+                    $job[3]->name = 4;
+                    $job[3]->priority = 1;
+                    
+                    $job[4] = new Job();
+                    $job[4]->arrival = 7;
+                    $job[4]->burst = 7;
+                    $job[4]->name = 5;
+                    $job[4]->priority = 1;
                     
                     $jq = new JobQueue();
                     

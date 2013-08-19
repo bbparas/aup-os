@@ -16,14 +16,16 @@
         }
         
         function insertJob(Job $job) {
-            $this->_queue[$job->arrival."-".$job->name] = $job;            
+            $this->_queue[$job->arrival."-".$job->name] = $job;
+            //ksort($this->_queue);            
         }
         
         function insertJobArray(Array $group) {
+            echo "send all job to queue<br/>";
             foreach($group as $job) {
                 $this->insertJob($job);
             }
-            ksort($this->_queue);
+            //ksort($this->_queue);
         }
         
         function viewQueue() { //for debuggin purpose only
@@ -43,26 +45,23 @@
             unset($this->_queue[$job->arrival."-".$job->name]);    
         }
         
-        function getShortest($key, Array $array) {
+        function getShortest($key, $array) {
+            
             foreach($array as $job) {
                 if(!isset($shortest)) {
                     $shortest[] = $job;
                 }
                 else {
-                    if($shortest->$key > $job->$key) {
+                    if($shortest[0]->$key > $job->$key) {
                         unset($shortest);
                         $shortest[] = $job;
                     }
-                    elseif($shortest->$key == $job->$key) {
+                    elseif($shortest[0]->$key == $job->$key) {
                         $shortest[] = $job;
                     }
                 }
             }
             
-            if(count($shortest) == 1) {
-                $shortest = $shortest[0];
-            }
-                
             return $shortest;
         }
         

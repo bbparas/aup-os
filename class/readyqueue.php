@@ -18,7 +18,7 @@
                 $this->_jobQueue = $jobQueue;
             }
             else {
-                echo "error: no Job Queue initialized";
+                echo "error: no Job Queue initialized<br/>";
             }
             
         }
@@ -28,8 +28,10 @@
                 if($job->arrival == $arrivalTime) {
                     $this->insertJob($job);
                     $this->_jobQueue->removeJob($job);
+                    echo "transfered job {$job->name} from job queue to ready queue<br/>";
                 }
             }
+            ksort($this->_queue);
         }
         
         function checkArrivedJob($time) {
@@ -39,6 +41,7 @@
                 }
             }
             return false;
+            
         }
         
         function getJobQueue() {
@@ -60,7 +63,10 @@
                 $shortestName = $this->getShortest("name", $shortestArrival);
                 
                 //$job
-                return $shortestName;    
+                $short = clone($shortestName[0]);
+                $this->removeJob($shortestName[0]);
+                echo "send job {$short->name} from readyqueue to cpu<br/>";
+                return $short;   
             }
         }
         
